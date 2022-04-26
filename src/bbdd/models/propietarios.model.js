@@ -12,7 +12,7 @@ const Propietarios = sequelize.define('propietarios', {
         allowNull: false
     },
     telefono: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     mail: {

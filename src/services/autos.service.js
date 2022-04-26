@@ -12,10 +12,34 @@ exports.getAllAutos = async (req, res, next) => {
                     attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
                 },
             ],
-            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt", 'propietario_id'] },
+            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt", 'propietario_id'] }
         });
         return listado;
     } catch (error) {
         return error.message;
+    }
+};
+
+
+exports.getUnAuto = async (req, res, next) => {
+    try {
+        const patente = req.params.patente;
+        const auto = await Autos.findAll(
+            {
+                where: { patente: patente },
+                include: [
+                    {
+                        model: Propietarios,
+                        as: "propietario",
+                        attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                    },
+                ],
+                attributes: { exclude: ["createdAt", "updatedAt", "deletedAt", 'propietario_id'] }
+            }
+        );
+        return auto;
+    }
+    catch (error) {
+        return error.message
     }
 };

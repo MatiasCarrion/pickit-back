@@ -59,3 +59,26 @@ exports.postAuto = async (req, res, next) => {
         })
     }
 };
+
+exports.putAuto = async (req, res, next) => {
+    try {
+        const { año, patente, color_id, propietario_id } = req.body;
+
+        if (!año, !patente, !color_id, !propietario_id) {
+            throw new Error('Faltan datos.')
+        }
+        const rows = await autosService.updateUnAuto(req, res);
+        return res.status(200).send({
+            success: true,
+            message: 'OK',
+            rows: rows[0]
+        })
+    }
+    catch (error) {
+        console.log('Error ', error.message);
+        return res.status(500).json({
+            success: false,
+            message: 'Operación fallida'
+        })
+    }
+};

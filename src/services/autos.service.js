@@ -68,3 +68,25 @@ exports.postAuto = async (req, res) => {
         return error.message;
     }
 };
+
+exports.updateUnAuto = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { año, patente, color_id, propietario_id } = req.body;
+
+        const rows = await Autos.update({
+            año: año,
+            patente: patente,
+            color_id: color_id,
+            propietario_id: propietario_id,
+        }, {
+            where: { id: id }
+        });
+
+        return rows;
+
+    } catch (error) {
+        return error.message;
+    }
+
+}

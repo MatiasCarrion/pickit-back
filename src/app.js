@@ -13,6 +13,7 @@ require('./bbdd/config/associations.bbdd')
 
 // rutas
 app.use('/api/autos', require('./routes/autos.route.js'));
+app.use('/api/propietarios', require('./routes/propietarios.route.js'));
 
 app.listen(port, (error) => {
     if (error) {

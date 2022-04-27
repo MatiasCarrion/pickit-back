@@ -7,11 +7,12 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }))
 require('./bbdd/config/associations.bbdd')
 
 // rutas
-app.use('/api/auto', require('./routes/autos.route.js'));
+app.use('/api/autos', require('./routes/autos.route.js'));
 
 app.listen(port, (error) => {
     if (error) {

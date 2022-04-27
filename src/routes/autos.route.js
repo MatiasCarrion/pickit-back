@@ -4,5 +4,6 @@ const autosController = require('./../controllers/autos.controller');
 
 router.get('/todos', autosController.getAllAutos);
 router.get('/:patente', autosController.getUnAuto);
+router.post('/postAuto', autosController.postAuto);
 
 module.exports = router;

@@ -7,10 +7,6 @@ const Colores = sequelize.define('colores', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    descripcion: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     codigo_HTML: {
         type: DataTypes.STRING,
         allowNull: true

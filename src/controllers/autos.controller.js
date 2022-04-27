@@ -100,3 +100,14 @@ exports.deleteUnAuto = async (req, res, next) => {
         })
     }
 };
+
+exports.getUnAutoInterno = async (id) => {
+    try {
+        const auto = await autosService.getUnAutoInterno(id);
+        return auto;
+    }
+    catch (error) {
+        console.log('Error ', error.message);
+        return error;
+    }
+};

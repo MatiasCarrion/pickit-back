@@ -4,7 +4,8 @@ const autosController = require('./../controllers/autos.controller');
 
 router.get('/todos', autosController.getAllAutos);
 router.get('/:patente', autosController.getUnAuto);
-router.post('/agregarAuto', autosController.postAuto);
-router.put('/modificarAuto/:id', autosController.putAuto);
+router.post('/agregar', autosController.postAuto);
+router.put('/modificar/:id', autosController.putAuto);
+router.delete('/eliminar/:id', autosController.deleteUnAuto);
 
 module.exports = router;

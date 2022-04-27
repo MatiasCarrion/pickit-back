@@ -88,5 +88,17 @@ exports.updateUnAuto = async (req, res) => {
     } catch (error) {
         return error.message;
     }
+};
 
-}
+exports.deleteUnAuto = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const rows = await Autos.destroy({
+            where: {id: id}
+        });
+        return rows;
+
+    } catch (error) {
+        return error.message;
+    }
+};

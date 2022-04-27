@@ -82,3 +82,21 @@ exports.putAuto = async (req, res, next) => {
         })
     }
 };
+
+exports.deleteUnAuto = async (req, res, next) => {
+    try {
+        const rows = await autosService.deleteUnAuto(req, res);
+        return res.status(200).send({
+            success: true,
+            message: 'OK',
+            rows: rows
+        })
+    }
+    catch (error) {
+        console.log('Error ', error.message);
+        return res.status(500).json({
+            success: false,
+            message: 'Operación fallida'
+        })
+    }
+};

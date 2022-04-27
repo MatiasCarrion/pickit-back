@@ -101,3 +101,29 @@ exports.deleteUnAuto = async (req, res) => {
         return error.message;
     }
 };
+
+exports.getUnAutoInterno = async (id) => {
+    try {
+        const auto = await Autos.findAll({
+            where: { id: id },
+            include: [
+                {
+                    model: Propietarios,
+                    as: "propietario",
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                },
+                {
+                    model: Colores,
+                    as: "color",
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                }
+            ],
+            attributes: {
+                exclude: ["createdAt", "updatedAt", "deletedAt", "propietario_id", "color_id"],
+            },
+        });
+        return auto;
+    } catch (error) {
+        return error.message;
+    }
+};

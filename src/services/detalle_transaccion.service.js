@@ -13,6 +13,6 @@ exports.postDetalle = async (id_transaccion, data, t) => {
         {transaction: t})
         return detalle;
     } catch (error) {
-     return error.message;   
+     throw new Error(error.message);   
     }
 }

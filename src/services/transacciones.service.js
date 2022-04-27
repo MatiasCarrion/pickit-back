@@ -1,47 +1,20 @@
 const sequelize = require("../bbdd/config/config.bbdd");
 const { Sequelize } = require('sequelize');
 const detalleTransaccionController = require("./../controllers/detalle_transaccion.controller");
+const autosController = require('./../controllers/autos.controller');
 const Transancciones = require("./../bbdd/models/transacciones.model");
 
-// exports.postTransaccion = async (req, res) => {
-//     try {
-//         const t = await sequelize.transaction();
-//         const { cabecera, detalles } = req.body;
-//         const fecha = new Date();
-//         const transaccion = await Transancciones.create(
-//             {
-//                 fecha: fecha,
-//                 auto_id: cabecera.auto_id,
-//                 observacion: cabecera.observacion,
-//             },
-//             { transaction: t }
-//         )
-//             .then(async (result) => {
-//                 for (let i = 0; i < detalles.length; i++) {
-//                     const unDetalle = detalles[i];
-//                     await detalleTransaccionController.postDetalle(result.id,unDetalle,t);
-//                 }
-//             })
-//             .catch((error) => {
-//                 return error.message;
-//             });
-//         await t.commit();
-//         console.log(transaccion)
-//         return transaccion;
-
-//     } catch (error) {
-//         t.rollback();
-//         return error.message;
-//     }
-// };
-
 exports.postTransaccion = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
-        const t = await sequelize.transaction();
         const { cabecera, detalles } = req.body;
         const fecha = new Date();
         const result_detalles = [];
         let presupuesto_total = 0;
+        const auto = await autosController.getUnAutoInterno(cabecera.auto_id);
+        if (!validarPinturaAutoGris(auto, detalles)) {
+            throw new Error('No se puede aplicar pintura a los autos grises.')
+        }
         const transaccion = await Transancciones.create(
             {
                 fecha: fecha,
@@ -60,7 +33,20 @@ exports.postTransaccion = async (req, res) => {
         return {costo_total: presupuesto_total,cabecera: transaccion, detalles: result_detalles};
 
     } catch (error) {
-        t.rollback();
-        return error.message;
+        await t.rollback();
+        throw new Error(error.message)
     }
 };
+
+function validarPinturaAutoGris(auto, detalles) {
+    let esta_ok = true;
+    if (auto[0].dataValues.color.dataValues.nombre == "Gris") {
+        detalles.map(unDetalle => {
+            if (unDetalle.servicio_id === 5) {
+                esta_ok = false;
+                return esta_ok;
+            }
+        })
+    }
+    return esta_ok;
+}

@@ -16,6 +16,7 @@ app.use('/api/autos', require('./routes/autos.route.js'));
 app.use('/api/propietarios', require('./routes/propietarios.route.js'));
 app.use('/api/transacciones', require('./routes/transacciones.route.js'));
 
+app.use(handleError)
 
 app.listen(port, (error) => {
     if (error) {
@@ -37,3 +38,13 @@ async function conectarse() {
         console.error('Error en conexión:', error.message);
       }
 }
+
+function handleError(err, req, res, next) {
+    res.status(err.status || 500)
+    res.json({
+      message: err.message,
+      extra: err.extra,
+      errors: err
+    })
+    res.end()
+  }

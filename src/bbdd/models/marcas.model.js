@@ -6,10 +6,6 @@ const Marcas = sequelize.define('marcas', {
     nombre: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.STRING,
-        allowNull: true
     }
 },
     {

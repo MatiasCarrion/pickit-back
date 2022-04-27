@@ -6,10 +6,6 @@ const Modelos = sequelize.define('modelos', {
     nombre: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.STRING,
-        allowNull: true
     }
 },
     {

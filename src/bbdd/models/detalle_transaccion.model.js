@@ -8,7 +8,7 @@ const Detalle_Transaccion = sequelize.define('detalle_transaccion', {
         allowNull: false,
         defaultValue: 1
     },
-    costo: {
+    costo_unitario: {
         type: DataTypes.INTEGER,
         allowNull: false
     },

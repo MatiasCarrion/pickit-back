@@ -18,8 +18,8 @@ Marcas.belongsTo(Autos, {as: 'auto', foreignKey: 'auto_id'});
 Marcas.hasOne(Modelos, {as:'modelo', foreignKey: 'marca_id'});
 Modelos.belongsTo(Marcas, {as: 'marca', foreignKey: 'marca_id'});
 // Autos con Colores
-Autos.hasMany(Colores, {as: 'color', foreignKey: 'auto_id'});
-Colores.belongsTo(Autos, {as: 'auto', foreignKey: 'auto_id'});
+Colores.hasMany(Autos, {as: 'auto', foreignKey: 'color_id'});
+Autos.belongsTo(Colores, {as: 'color', foreignKey: 'color_id'});
 // Propietarios con Autos
 Propietarios.hasMany(Autos, {as: 'auto', foreignKey: 'propietario_id'});
 Autos.belongsTo(Propietarios, {as: 'propietario', foreignKey: 'propietario_id'});
@@ -27,8 +27,8 @@ Autos.belongsTo(Propietarios, {as: 'propietario', foreignKey: 'propietario_id'})
 Transacciones.hasMany(Detalle_Transaccion, {as: 'detalle_transaccion', foreignKey: 'transaccion_id'});
 Detalle_Transaccion.belongsTo(Transacciones, {as: 'transaccion', foreignKey: 'transaccion_id'});
 // Detalle_transaccion con Servicio
-Detalle_Transaccion.hasOne(Servicios, {as: 'servicio', foreignKey: 'detalle_transaccion_id'});
-Servicios.belongsTo(Detalle_Transaccion, {as: 'detalle_transaccion', foreignKey: 'detalle_transaccion_id'});
+Servicios.hasMany(Detalle_Transaccion, {as: 'detalle_transaccio', foreignKey: 'servicio_id'});
+Detalle_Transaccion.belongsTo(Servicios, {as: 'servicio', foreignKey: 'servicio_id'});
 // Transaccion con Auto
 Autos.hasMany(Transacciones, {as: 'transaccion', foreignKey: 'auto_id'});
 Transacciones.belongsTo(Autos, {as: 'auto', foreignKey: 'auto_id'});

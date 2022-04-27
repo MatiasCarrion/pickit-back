@@ -7,11 +7,12 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }))
 require('./bbdd/config/associations.bbdd')
 
 // rutas
-
+app.use('/api/autos', require('./routes/autos.route.js'));
 
 app.listen(port, (error) => {
     if (error) {
@@ -27,7 +28,7 @@ app.listen(port, (error) => {
 async function conectarse() {
     console.log('Iniciando conexión a base de datos...')
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync({ force: false });
         console.log('Conexión exitosa.');
       } catch (error) {
         console.error('Error en conexión:', error.message);

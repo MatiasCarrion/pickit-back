@@ -15,4 +15,17 @@ exports.postTransaccion = async (req, res, next) => {
     } catch (error) {
         return next(error)
     }
+};
+
+exports.getHistoricoPorAuto = async (req, res, next) => {
+    try {
+        const historico = await transaccionesService.getHistoricoPorAuto(req, res, next);
+        return res.status(200).send({
+            success: true,
+            message: 'OK',
+            data: historico
+        })
+    } catch (error) {
+        return next(error)
+    }
 }

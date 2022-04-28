@@ -16,9 +16,6 @@ exports.postPropietario = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).json({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error);
     }
 };

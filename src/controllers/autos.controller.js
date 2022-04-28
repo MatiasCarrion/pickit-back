@@ -12,10 +12,7 @@ exports.getAllAutos = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).send({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error)
     }
 };
 
@@ -30,10 +27,7 @@ exports.getUnAuto = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).json({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error)
     }
 };
 
@@ -53,10 +47,7 @@ exports.postAuto = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).json({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error)
     }
 };
 
@@ -76,10 +67,7 @@ exports.putAuto = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).json({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error)
     }
 };
 
@@ -94,10 +82,7 @@ exports.deleteUnAuto = async (req, res, next) => {
     }
     catch (error) {
         console.log('Error ', error.message);
-        return res.status(500).json({
-            success: false,
-            message: 'Operación fallida'
-        })
+        return next(error)
     }
 };
 

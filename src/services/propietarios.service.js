@@ -11,6 +11,7 @@ exports.postPropietario = async (req, res) => {
         })
         return propietario;
     } catch (error) {
-        return error.message;
+        console.log("Error"+error.message);
+        throw new Error(error.message);
     }
 };

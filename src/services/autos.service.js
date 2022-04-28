@@ -1,6 +1,8 @@
 const Autos = require("../bbdd/models/autos.model");
 const Propietarios = require("../bbdd/models/propietarios.model");
 const Colores = require('./../bbdd/models/colores.model');
+const Marcas = require('./../bbdd/models/marcas.model');
+const Modelos = require('./../bbdd/models/modelos.model');
 
 exports.getAllAutos = async (req, res, next) => {
     try {
@@ -9,21 +11,33 @@ exports.getAllAutos = async (req, res, next) => {
                 {
                     model: Propietarios,
                     as: "propietario",
-                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt", "id"] },
                 },
                 {
                     model: Colores,
                     as: "color",
-                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id"] },
+                },
+                {
+                    model: Marcas,
+                    as: "marca",
+                    include: [
+                        {
+                            model: Modelos,
+                            as: "modelo",
+                            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id","marca_id"] },
+                        }
+                    ],
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id","auto_id"] },
                 }
             ],
             attributes: {
                 exclude: ["createdAt", "updatedAt", "deletedAt", "propietario_id", "color_id"],
-            },
+            }
         });
         return listado;
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };
 
@@ -36,21 +50,33 @@ exports.getUnAuto = async (req, res, next) => {
                 {
                     model: Propietarios,
                     as: "propietario",
-                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt", "id"] },
                 },
                 {
                     model: Colores,
                     as: "color",
-                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id"] },
+                },
+                {
+                    model: Marcas,
+                    as: "marca",
+                    include: [
+                        {
+                            model: Modelos,
+                            as: "modelo",
+                            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id","marca_id"] },
+                        }
+                    ],
+                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt","id","auto_id"] },
                 }
             ],
             attributes: {
                 exclude: ["createdAt", "updatedAt", "deletedAt", "propietario_id", "color_id"],
-            },
+            }
         });
         return auto;
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };
 
@@ -65,7 +91,7 @@ exports.postAuto = async (req, res) => {
         })
         return auto;
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };
 
@@ -85,7 +111,7 @@ exports.updateUnAuto = async (req, res) => {
         return rows;
 
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };
 
@@ -98,7 +124,7 @@ exports.deleteUnAuto = async (req, res) => {
         return rows;
 
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };
 
@@ -107,11 +133,6 @@ exports.getUnAutoInterno = async (id) => {
         const auto = await Autos.findAll({
             where: { id: id },
             include: [
-                {
-                    model: Propietarios,
-                    as: "propietario",
-                    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-                },
                 {
                     model: Colores,
                     as: "color",
@@ -124,6 +145,6 @@ exports.getUnAutoInterno = async (id) => {
         });
         return auto;
     } catch (error) {
-        return error.message;
+        throw new Error(error.message);
     }
 };

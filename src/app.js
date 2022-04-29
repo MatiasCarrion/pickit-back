@@ -16,7 +16,7 @@ app.use('/api/autos', require('./routes/autos.route.js'));
 app.use('/api/propietarios', require('./routes/propietarios.route.js'));
 app.use('/api/transacciones', require('./routes/transacciones.route.js'));
 app.use('/api/colores', require('./routes/colores.route.js'));
-
+app.use('/api/marcas', require('./routes/marcas.route.js'));
 
 app.use(handleError)
 

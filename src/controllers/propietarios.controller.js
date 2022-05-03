@@ -19,3 +19,18 @@ exports.postPropietario = async (req, res, next) => {
         return next(error);
     }
 };
+
+exports.getAllPropietarios = async (req, res, next) => {
+    try {
+        const propietarios = await propietariosService.getAllPropietarios()
+        return res.status(200).send({
+            success: true,
+            message: 'OK',
+            data: propietarios
+        })
+    }
+    catch (error) {
+        console.log('Error ', error.message);
+        return next(error)
+    }
+};

@@ -15,3 +15,16 @@ exports.postPropietario = async (req, res) => {
         throw new Error(error.message);
     }
 };
+
+exports.getAllPropietarios = async (req, res, next) => {
+    try {
+        const listado = await Propietarios.findAll({
+            attributes: {
+                exclude: ["createdAt", "updatedAt", "deletedAt"],
+            }
+        });
+        return listado;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
